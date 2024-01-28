@@ -9,7 +9,8 @@
     "build-server": "yarn run build-server-module && yarn run build-shared-module",
     "build-server-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/server src/server",
     "build-shared-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/shared src/shared",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "fmt": "prettier . --write"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -30,6 +31,7 @@
     "babel-plugin-add-import-extension": "^1.6.0",
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-require": "^4.0.2",
+    "prettier": "^3.2.4",
     "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
     "webpack-cli": "^5.1.4"

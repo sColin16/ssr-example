@@ -1,15 +1,15 @@
-import express from 'express'
-import { html } from './html'
-import { renderToString } from 'react-dom/server'
-import { resolveProps } from './propsResolver'
-import { App } from 'shared/components/App'
+import express from "express"
+import { html } from "./html"
+import { renderToString } from "react-dom/server"
+import { resolveProps } from "./propsResolver"
+import { App } from "shared/components/App"
 
 const port = 3000
 const server = express()
 
-server.use(express.static('dist'))
+server.use(express.static("dist"))
 
-server.get('/api/props*', (req, res) => {
+server.get("/api/props*", (req, res) => {
   // Update the path to remove the /api/props prefix
   const pagePath = req.url.slice(10)
   req.url = pagePath
@@ -19,10 +19,10 @@ server.get('/api/props*', (req, res) => {
   res.status(200).json(props)
 })
 
-server.get('*', (req, res) => {
+server.get("*", (req, res) => {
   const props = resolveProps(req)
 
-  const body = renderToString(<App {...props}/>)
+  const body = renderToString(<App {...props} />)
 
   res.send(html(body, props))
 })

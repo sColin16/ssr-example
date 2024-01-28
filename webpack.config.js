@@ -1,10 +1,10 @@
-const path = require('path')
+const path = require("path")
 
 module.exports = {
-  entry: './src/client/clientEntry.tsx',
+  entry: "./src/client/clientEntry.tsx",
   output: {
-    filename: 'client.js',
-    path: path.resolve(__dirname, 'dist')
+    filename: "client.js",
+    path: path.resolve(__dirname, "dist"),
   },
   module: {
     rules: [
@@ -14,28 +14,30 @@ module.exports = {
         exclude: /node_modules/,
         use: [
           {
-            loader: 'babel-loader',
+            loader: "babel-loader",
             options: {
-              presets: ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"],
-              plugins: ["react-require",
+              presets: [
+                "@babel/preset-env",
+                "@babel/preset-react",
+                "@babel/preset-typescript",
+              ],
+              plugins: [
+                "react-require",
                 [
-                  'module-resolver',
+                  "module-resolver",
                   {
-                    root: ['./src'],
-                    extensions: [
-                      '.ts',
-                      '.tsx'
-                    ],
+                    root: ["./src"],
+                    extensions: [".ts", ".tsx"],
                   },
                 ],
               ],
-            }
-          }
-        ]
-      }
-    ]
+            },
+          },
+        ],
+      },
+    ],
   },
   resolve: {
-    extensions: [".ts", ".tsx"]
-  }
+    extensions: [".ts", ".tsx"],
+  },
 }

@@ -9,9 +9,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "noEmit": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
-  "include": [
-    "src/**/*"
-  ]
+  "include": ["src/**/*"],
 }

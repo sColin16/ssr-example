@@ -11,7 +11,7 @@ export const Link = ({ path, children }: LinkProps) => {
   return (
     <a
       href={path}
-      onClick = {(e) => {
+      onClick={(e) => {
         e.preventDefault()
         navigate(path)
       }}
