@@ -1,4 +1,4 @@
-import { AppProps } from "components/App"
+import { AppProps } from "shared/components/App"
 
 export const html = (body: string, props: AppProps) => {
   return `

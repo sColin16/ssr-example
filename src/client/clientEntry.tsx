@@ -1,7 +1,6 @@
-import React from "react";
 import { hydrate } from "react-dom";
 
-import { App, AppProps } from "./components/App";
+import { App, AppProps } from "shared/components/App";
 
 declare const props: AppProps
 

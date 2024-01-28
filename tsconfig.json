@@ -1,19 +1,17 @@
-
 {
   "compilerOptions": {
-    "target": "es6",
-    "lib": ["es2015", "es2016", "es2017", "dom"],
-    "outDir": "./dist/",
+    "lib": ["es2022", "dom"],
+    "module": "ES2022",
+    "target": "ES2022",
+    "moduleResolution": "Bundler",
+    "outDir": "dist",
     "strict": true,
-    "module": "es2015",
-    "moduleResolution": "node",
     "jsx": "react-jsx",
-    "allowSyntheticDefaultImports": true,
     "baseUrl": "src",
+    "noEmit": true,
     "esModuleInterop": true
   },
   "include": [
-    "./src/server/**/*",
-    "./src/components/**/*"
+    "src/**/*"
   ]
 }

@@ -1,5 +1,4 @@
-import { AppProps } from "components/App";
-import { CounterProps } from "components/Counter";
+import { AppProps } from "shared/components/App";
 import { Request } from "express";
 
 export const resolveProps = (req: Request): AppProps => {

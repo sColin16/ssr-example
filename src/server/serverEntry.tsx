@@ -1,9 +1,8 @@
-import React from 'react'
 import express from 'express'
-import { html } from './html.js'
+import { html } from './html'
 import { renderToString } from 'react-dom/server'
-import { resolveProps } from './propsResolver.js'
-import { App } from '../components/App.js'
+import { resolveProps } from './propsResolver'
+import { App } from 'shared/components/App'
 
 const port = 3000
 const server = express()
