@@ -4,7 +4,7 @@ module.exports = {
   entry: "./src/client/clientEntry.tsx",
   output: {
     filename: "client.js",
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist/public"),
   },
   module: {
     rules: [

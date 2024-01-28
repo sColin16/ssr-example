@@ -1,26 +1,28 @@
 import express from "express"
 import { html } from "./html"
 import { renderToString } from "react-dom/server"
-import { resolveProps } from "./propsResolver"
 import { App } from "shared/components/App"
+import { resolveProps } from "./service/props"
+import compression from 'compression'
 
 const port = 3000
 const server = express()
 
-server.use(express.static("dist"))
+server.use(compression())
+server.use(express.static("dist/public"))
 
-server.get("/api/props*", (req, res) => {
+server.get("/api/props*", async (req, res) => {
   // Update the path to remove the /api/props prefix
   const pagePath = req.url.slice(10)
   req.url = pagePath
 
-  const props = resolveProps(req)
+  const props = await resolveProps(req)
 
   res.status(200).json(props)
 })
 
-server.get("*", (req, res) => {
-  const props = resolveProps(req)
+server.get("*", async (req, res) => {
+  const props = await resolveProps(req)
 
   const body = renderToString(<App {...props} />)
 

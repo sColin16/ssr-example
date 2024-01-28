@@ -1,9 +1,8 @@
-import { AppProps } from "shared/components/App"
 import { Request } from "express"
+import { AppProps } from "shared/components/App"
 
-export const resolveProps = (req: Request): AppProps => {
-  const url = new URL(req.url, `http://${req.headers.host}`)
-  const page = url.pathname.split("/").at(1)
+export const resolveProps = async (req: Request): Promise<AppProps> => {
+  const page = req.url.split("/").at(1)
 
   if (page === "hundred") {
     return {
