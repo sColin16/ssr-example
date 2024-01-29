@@ -1,32 +1,30 @@
 import express from "express"
-import { html } from "./html"
-import { renderToString } from "react-dom/server"
-import { App } from "shared/components/App"
 import { resolveProps } from "./service/props"
-import compression from 'compression'
+import compression from "compression"
+import propsRouter from "./router/props"
+import pageRouter from "./router/page"
+import { buildRenderPage } from "./service/renderPage"
 
 const port = 3000
-const server = express()
+const app = express()
 
-server.use(compression())
-server.use(express.static("dist/public"))
+// Compress all responses
+app.use(compression())
 
-server.get("/api/props*", async (req, res) => {
-  // Update the path to remove the /api/props prefix
-  const pagePath = req.url.slice(10)
-  req.url = pagePath
+// Serve the clientEntry.js file that should be built to this directory
+app.use(express.static("dist/public"))
 
-  const props = await resolveProps(req)
+// Endpoint for fetching props
+app.use(
+  propsRouter({
+    resolveProps,
+  }),
+)
 
-  res.status(200).json(props)
-})
+app.use(
+  pageRouter({
+    renderPage: buildRenderPage({ resolveProps }),
+  }),
+)
 
-server.get("*", async (req, res) => {
-  const props = await resolveProps(req)
-
-  const body = renderToString(<App {...props} />)
-
-  res.send(html(body, props))
-})
-
-server.listen(port, () => console.log(`App listening on port ${port}`))
+app.listen(port, () => console.log(`App listening on port ${port}`))

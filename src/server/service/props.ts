@@ -1,7 +1,9 @@
 import { Request } from "express"
 import { AppProps } from "shared/components/App"
 
-export const resolveProps = async (req: Request): Promise<AppProps> => {
+export type PropsResolver = (req: Request) => Promise<AppProps>
+
+export const resolveProps: PropsResolver = async (req) => {
   const page = req.url.split("/").at(1)
 
   if (page === "hundred") {

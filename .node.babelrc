@@ -2,7 +2,7 @@
   "presets": [
     "@babel/preset-env",
     "@babel/preset-react",
-    "@babel/preset-typescript"
+    "@babel/preset-typescript",
   ],
   "plugins": [
     "add-import-extension",
@@ -10,14 +10,9 @@
     [
       "module-resolver",
       {
-        "root": [
-          "./src"
-        ],
-        "extensions": [
-          ".ts",
-          ".tsx"
-        ],
+        "root": ["./src"],
+        "extensions": [".ts", ".tsx"],
       },
     ],
-  ]
+  ],
 }
