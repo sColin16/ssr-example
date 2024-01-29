@@ -2383,6 +2383,11 @@ merge-stream@^2.0.0:
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
   integrity sha512-abv/qOcuPfk3URPfDzmZU1LKmuw8kT+0nIHvKrKgFrwifol/doWcdA4ZqsWQ8ENrFKkd67Mfpo/LovbIUsbt3w==
 
+mesh-di@^0.0.4:
+  version "0.0.4"
+  resolved "https://registry.yarnpkg.com/mesh-di/-/mesh-di-0.0.4.tgz#5ac8c092831548ec7c1446bab3b2955816e96ad7"
+  integrity sha512-QjwryyOlZv96vDSAejPPoWdlPpKPPzimOH/6OxxpCYgR3G1IWVgqFEt+UXJtVlguJc3mQQTAzmkx/dO2JbFU3A==
+
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/methods/-/methods-1.1.2.tgz#5529a4d67654134edcc5266656835b0f851afcee"

@@ -8,7 +8,7 @@ export type PropsRouterOptions = {
 
 const DEFAULT_BASE_URL = "/api/props"
 
-export const propsRouter = ({
+export const buildPropsRouter = ({
   resolveProps,
   baseUrl = DEFAULT_BASE_URL,
 }: PropsRouterOptions) => {
@@ -27,4 +27,4 @@ export const propsRouter = ({
   return router
 }
 
-export default propsRouter
+export default buildPropsRouter

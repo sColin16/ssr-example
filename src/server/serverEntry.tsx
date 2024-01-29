@@ -1,9 +1,6 @@
 import express from "express"
-import { resolveProps } from "./service/props"
 import compression from "compression"
-import propsRouter from "./router/props"
-import pageRouter from "./router/page"
-import { buildRenderPage } from "./service/renderPage"
+import { pageRouter, propsRouter } from "./container"
 
 const port = 3000
 const app = express()
@@ -15,16 +12,9 @@ app.use(compression())
 app.use(express.static("dist/public"))
 
 // Endpoint for fetching props
-app.use(
-  propsRouter({
-    resolveProps,
-  }),
-)
+app.use(propsRouter)
 
-app.use(
-  pageRouter({
-    renderPage: buildRenderPage({ resolveProps }),
-  }),
-)
+// Endpoint for rendering page HTML
+app.use(pageRouter)
 
 app.listen(port, () => console.log(`App listening on port ${port}`))

@@ -4,7 +4,7 @@ export type PageRouterOptions = {
   renderPage: (req: Request) => Promise<string>
 }
 
-export const pageRouter = ({ renderPage }: PageRouterOptions) => {
+export const buildPageRouter = ({ renderPage }: PageRouterOptions) => {
   const router = Router()
 
   router.get("*", async (req, res) => {
@@ -16,4 +16,4 @@ export const pageRouter = ({ renderPage }: PageRouterOptions) => {
   return router
 }
 
-export default pageRouter
+export default buildPageRouter
