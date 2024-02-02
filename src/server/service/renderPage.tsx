@@ -1,7 +1,7 @@
-import { Request } from "express";
-import { App, AppProps } from "shared/components/App";
-import { PropsResolver } from "./props";
-import { renderToString } from "react-dom/server";
+import { Request } from "express"
+import { App, AppProps } from "shared/components/App"
+import { PropsResolver } from "./props"
+import { renderToString } from "react-dom/server"
 
 type RenderPageOptions = {
   resolveProps: PropsResolver
@@ -28,7 +28,7 @@ export const html = (body: string, props: AppProps) => {
         <div id="app">${body}</div>
       </body>
       <script>props=${JSON.stringify(props)}</script>
-      <script src="client.js" defer></script>
+      <script src="/client.js" defer></script>
     </html>
   `
 }

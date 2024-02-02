@@ -1,9 +1,9 @@
 import { useContext } from "react"
-import { PropsContext } from "shared/contexts/props"
+import { LayoutPropsContext } from "shared/contexts/layoutProps"
 import { requireOrThrow } from "shared/utils"
 
-export const useProps = () => {
-  const props = useContext(PropsContext)
+export const useLayoutProps = () => {
+  const props = useContext(LayoutPropsContext)
 
   return requireOrThrow(props, new Error("Error accessing the props context"))
 }

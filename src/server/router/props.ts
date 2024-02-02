@@ -1,15 +1,15 @@
-import { Router, Request } from "express"
-import { AppProps } from "shared/components/App"
+import { Router } from "express"
+import { PartialPropsResolver } from "server/service/props"
 
 export type PropsRouterOptions = {
   baseUrl?: string
-  resolveProps: (req: Request) => Promise<AppProps>
+  resolvePartialProps: PartialPropsResolver
 }
 
 const DEFAULT_BASE_URL = "/api/props"
 
 export const buildPropsRouter = ({
-  resolveProps,
+  resolvePartialProps,
   baseUrl = DEFAULT_BASE_URL,
 }: PropsRouterOptions) => {
   const router = Router()
@@ -19,7 +19,7 @@ export const buildPropsRouter = ({
     const pagePath = req.url.slice(baseUrl.length)
     req.url = pagePath
 
-    const props = await resolveProps(req)
+    const props = await resolvePartialProps(req)
 
     res.status(200).json(props)
   })
