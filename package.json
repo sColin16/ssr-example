@@ -1,6 +1,6 @@
 {
-  "name": "react-ssr-webpack",
-  "version": "1.0.0",
+  "name": "ssr-example",
+  "version": "0.0.1",
   "license": "MIT",
   "scripts": {
     "start": "yarn run build && node dist/server/serverEntry.js",
