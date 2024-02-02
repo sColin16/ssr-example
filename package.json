@@ -17,8 +17,7 @@
     "express": "^4.18.2",
     "mesh-di": "^0.0.4",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "webpack": "^5.90.0"
+    "react-dom": "^18.2.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.23.9",
@@ -35,8 +34,8 @@
     "babel-plugin-module-resolver": "^5.0.0",
     "babel-plugin-react-require": "^4.0.2",
     "prettier": "^3.2.4",
-    "ts-loader": "^9.5.1",
     "typescript": "^5.3.3",
+    "webpack": "^5.90.1",
     "webpack-cli": "^5.1.4"
   }
 }
