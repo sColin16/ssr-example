@@ -22,12 +22,10 @@ export const useNavigate = () => {
 
       // Set the props based on the response
       if (isNotNil(udpatedProps.layout)) {
-        console.log("Layout props updated")
         setLayoutProps(udpatedProps.layout)
       }
 
       if (isNotNil(udpatedProps.page)) {
-        console.log("Page props updated")
         setPageProps(udpatedProps.page)
       }
 
