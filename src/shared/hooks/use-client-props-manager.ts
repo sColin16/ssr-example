@@ -1,12 +1,4 @@
-import { useContext } from "react"
 import { ClientPropsManagerContext } from "shared/contexts/propsManager"
-import { requireOrThrow } from "shared/utils"
+import { getUseNonNullContext } from "shared/utils/use-non-null-context"
 
-export const useClientPropsManager = () => {
-  const clientPropsManager = useContext(ClientPropsManagerContext)
-
-  return requireOrThrow(
-    clientPropsManager,
-    new Error("Error accessing the client props manager context"),
-  )
-}
+export const useClientPropsManager = getUseNonNullContext(ClientPropsManagerContext, "Client Props Manager")

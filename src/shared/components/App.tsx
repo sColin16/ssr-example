@@ -1,12 +1,9 @@
 import { LayoutProps } from "./Layout"
 import { PageProps } from "./Page"
-import { LayoutManager } from "./LayoutManager"
-import { PagePropsProvider } from "shared/contexts/pageProps"
-import { PageManager } from "./PageManager"
-import { LayoutPropsProvider } from "shared/contexts/layoutProps"
 import { ClientPropsManager } from "shared/service/props-manager"
 import { ClientNavigationManager } from "./ClientNavigationManager"
 import { ClientPropsManagerContext } from "shared/contexts/propsManager"
+import { LayoutManager, PageManager } from "./Managers"
 
 export type SiteProps = {
   layout: LayoutProps
@@ -14,21 +11,16 @@ export type SiteProps = {
 }
 
 export type AppProps = {
-  siteProps: SiteProps
   clientPropsManager: ClientPropsManager
 }
 
-export const App = ({ siteProps, clientPropsManager }: AppProps) => {
+export const App = ({ clientPropsManager }: AppProps) => {
   return (
     <ClientPropsManagerContext.Provider value={clientPropsManager}>
       <ClientNavigationManager />
-      <LayoutPropsProvider initialProps={siteProps.layout}>
-        <PagePropsProvider initialProps={siteProps.page}>
-          <LayoutManager>
-            <PageManager />
-          </LayoutManager>
-        </PagePropsProvider>
-      </LayoutPropsProvider>
+      <LayoutManager>
+        <PageManager />
+      </LayoutManager>
     </ClientPropsManagerContext.Provider>
   )
 }
