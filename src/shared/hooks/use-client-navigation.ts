@@ -1,8 +1,14 @@
+import { useEffect } from "react"
 import { useClientPropsManager } from "./use-client-props-manager"
 import { useEventListener } from "./use-event-listener"
 
 export const useClientNavigation = () => {
   const clientPropsManager = useClientPropsManager()
+
+  // Set the initial state so that users can navigate back to initial render
+  useEffect(() => {
+    history.replaceState(clientPropsManager.currentProps, "", document.location.href)
+  }, [clientPropsManager])
 
   // Listen to browser navigation events and update props accordingly
   useEventListener("popstate", (event) => {
