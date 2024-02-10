@@ -1,5 +1,5 @@
 import { Request } from "express"
-import { SiteProps } from "shared/components/App"
+import { SiteProps } from "shared/components/AppBody"
 import { PartialAppProps } from "shared/service/props"
 
 export type PropsResolver = (req: Request) => Promise<SiteProps>

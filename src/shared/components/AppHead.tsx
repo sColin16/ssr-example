@@ -1,5 +1,5 @@
 import { ClientPropsManagerContext } from "shared/contexts/propsManager"
-import { AppProps } from "./App"
+import { AppProps } from "./AppBody"
 import { HeadManager } from "./Managers"
 
 export const AppHead = ({ clientPropsManager }: AppProps) => {

@@ -1,4 +1,4 @@
-import { SiteProps } from "shared/components/App"
+import { SiteProps } from "shared/components/AppBody"
 import { useClientPropsManager } from "./use-client-props-manager"
 import { useEffect, useState } from "react"
 import { isNotNil } from "shared/utils"

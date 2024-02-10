@@ -1,4 +1,4 @@
-import { SiteProps } from "shared/components/App"
+import { SiteProps } from "shared/components/AppBody"
 
 export type SubscriptionCallback = (message: Partial<SiteProps>) => void
 
