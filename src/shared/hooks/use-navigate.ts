@@ -12,13 +12,9 @@ export const useNavigate = () => {
       // TODO: make propsService dependency injectable so we can do things like prefetching, caching, etc.
       const updatedProps = await propsService.fetchProps(path, currentProps)
 
-      clientPropsManager.updateProps({
-        updatedProps,
-        state: {
-          type: 'pathNavigate',
-          path
-        }
-      })
+      clientPropsManager.updateProps(updatedProps)
+
+      history.pushState(clientPropsManager.currentProps, "", path)
     },
     [clientPropsManager],
   )
