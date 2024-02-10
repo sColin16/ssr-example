@@ -5,8 +5,6 @@ export type HeadProps = {
 
 export const Head = ({ title }: HeadProps) => {
   return (
-    <head>
-      <title>{title}</title>
-    </head>
+    <title>{title}</title>
   )
 }
