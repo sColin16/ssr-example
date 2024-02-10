@@ -8,26 +8,26 @@ import { ClientPropsManager } from "shared/service/props-manager"
 import { ClientNavigationManager } from "./ClientNavigationManager"
 import { ClientPropsManagerContext } from "shared/contexts/propsManager"
 
-export type LayerProps = {
+export type SiteProps = {
   layout: LayoutProps
   page: PageProps
 }
 
 export type AppProps = {
-  layerProps: LayerProps
+  siteProps: SiteProps
   clientPropsManager: ClientPropsManager
 }
 
-export const App = ({ layerProps, clientPropsManager }: AppProps) => {
+export const App = ({ siteProps, clientPropsManager }: AppProps) => {
   return (
     <ClientPropsManagerContext.Provider value={clientPropsManager}>
       <ClientNavigationManager />
-      <LayoutPropsProvider initialProps={layerProps.layout}>
-        <LayoutManager>
-          <PagePropsProvider initialProps={layerProps.page}>
+      <LayoutPropsProvider initialProps={siteProps.layout}>
+        <PagePropsProvider initialProps={siteProps.page}>
+          <LayoutManager>
             <PageManager />
-          </PagePropsProvider>
-        </LayoutManager>
+          </LayoutManager>
+        </PagePropsProvider>
       </LayoutPropsProvider>
     </ClientPropsManagerContext.Provider>
   )

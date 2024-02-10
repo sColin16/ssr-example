@@ -1,9 +1,9 @@
-import { LayerProps } from "shared/components/App"
+import { SiteProps } from "shared/components/App"
 
-export type PartialAppProps = Partial<LayerProps>
+export type PartialAppProps = Partial<SiteProps>
 
 export const propsService = {
-  fetchProps: async (path: string, currProps: LayerProps): Promise<PartialAppProps> => {
+  fetchProps: async (path: string, currProps: SiteProps): Promise<PartialAppProps> => {
     const response = await fetch(`/api/props${path}`, {
       headers: {
         // TODO: send some abbreviated version of the props instead of the entire props payload

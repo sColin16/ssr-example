@@ -1,12 +1,12 @@
-import { LayerProps } from "shared/components/App"
+import { SiteProps } from "shared/components/App"
 
-export type SubscriptionCallback = (message: Partial<LayerProps>) => void
+export type SubscriptionCallback = (message: Partial<SiteProps>) => void
 
 export class ClientPropsManager {
-  currentProps: LayerProps
+  currentProps: SiteProps
   private readonly subscriptions: Array<SubscriptionCallback> = []
 
-  constructor(initialProps: LayerProps) {
+  constructor(initialProps: SiteProps) {
     this.currentProps = initialProps
   }
 
@@ -14,13 +14,13 @@ export class ClientPropsManager {
     this.subscriptions.push(callback)
   }
 
-  updateProps = (updatedProps: Partial<LayerProps>) => {
+  updateProps = (updatedProps: Partial<SiteProps>) => {
     this.currentProps = { ...this.currentProps, ...updatedProps }
 
     this.notifySubscribers(updatedProps)
   }
 
-  private notifySubscribers = (updatedProps: Partial<LayerProps>) => {
+  private notifySubscribers = (updatedProps: Partial<SiteProps>) => {
     this.subscriptions.forEach((subscriberCallback) =>
       subscriberCallback(updatedProps)
     )
