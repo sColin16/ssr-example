@@ -17,9 +17,9 @@ export const PagePropsProvider = ({
   const clientPropsManager = useClientPropsManager()
 
   useEffect(() => {
-    clientPropsManager.registerSubscription((newProps) => {
-      if (isNotNil(newProps.updatedProps.page)) {
-        setProps(newProps.updatedProps.page)
+    clientPropsManager.registerSubscription((updatedProps) => {
+      if (isNotNil(updatedProps.page)) {
+        setProps(updatedProps.page)
       }
     })
   }, [clientPropsManager, setProps])

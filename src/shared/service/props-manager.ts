@@ -1,11 +1,6 @@
 import { LayerProps } from "shared/components/App"
 
-export type PropsUpdateMessage = {
-  updatedProps: Partial<LayerProps>
-  allProps: LayerProps
-}
-
-export type SubscriptionCallback = (message: PropsUpdateMessage) => void
+export type SubscriptionCallback = (message: Partial<LayerProps>) => void
 
 export class ClientPropsManager {
   currentProps: LayerProps
@@ -27,10 +22,7 @@ export class ClientPropsManager {
 
   private notifySubscribers = (updatedProps: Partial<LayerProps>) => {
     this.subscriptions.forEach((subscriberCallback) =>
-      subscriberCallback({
-        allProps: this.currentProps,
-        updatedProps,
-      }),
+      subscriberCallback(updatedProps)
     )
   }
 }

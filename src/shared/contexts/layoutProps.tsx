@@ -18,7 +18,7 @@ export const LayoutPropsProvider = ({
 
   // Register subscription to listen to updates to layout props
   useEffect(() => {
-    clientPropsManager.registerSubscription(({ updatedProps }) => {
+    clientPropsManager.registerSubscription((updatedProps) => {
       if (isNotNil(updatedProps.layout)) {
         setProps(updatedProps.layout)
       }
