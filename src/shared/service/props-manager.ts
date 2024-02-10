@@ -22,7 +22,7 @@ export class ClientPropsManager {
   updateProps = (updatedProps: Partial<LayerProps>) => {
     this.currentProps = { ...this.currentProps, ...updatedProps }
 
-    this.notifySubscribers(this.currentProps)
+    this.notifySubscribers(updatedProps)
   }
 
   private notifySubscribers = (updatedProps: Partial<LayerProps>) => {
