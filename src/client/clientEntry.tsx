@@ -1,4 +1,4 @@
-import { hydrate } from "react-dom"
+import { hydrateRoot } from "react-dom/client"
 import { App, AppProps, SiteProps } from "shared/components/App"
 import { AppHead } from "shared/components/AppHead"
 import { ClientPropsManager } from "shared/service/props-manager"
@@ -11,5 +11,5 @@ const appProps: AppProps = {
   clientPropsManager,
 }
 
-hydrate(<AppHead {...appProps} />, document.head)
-hydrate(<App {...appProps} />, document.getElementById("app"))
+hydrateRoot(document.head, <AppHead {...appProps} />)
+hydrateRoot(document.getElementById("app")!, <App {...appProps} />)
