@@ -1,29 +1,32 @@
-import { PropsWithChildren, createContext, useState } from "react"
+import { PropsWithChildren, createContext, useEffect, useState } from "react"
 import { LayoutProps } from "shared/components/Layout"
-import { useEventListener } from "shared/hooks/use-event-listener"
-import { StatePair } from "shared/utils"
+import { useClientPropsManager } from "shared/hooks/use-client-props-manager"
+import { isNotNil } from "shared/utils"
 
 export type LayoutPropsProviderProps = PropsWithChildren<{
   initialProps: LayoutProps
 }>
 
-export const LayoutPropsContext = createContext<StatePair<LayoutProps> | null>(
-  null,
-)
+export const LayoutPropsContext = createContext<LayoutProps | null>(null)
 
 export const LayoutPropsProvider = ({
   initialProps,
   children,
 }: LayoutPropsProviderProps) => {
   const [props, setProps] = useState(initialProps)
+  const clientPropsManager = useClientPropsManager()
 
-  useEventListener("popstate", (event) => {
-    // TODO: only set this when the layout changes as a result of navigation
-    setProps(event.state.layout)
-  })
+  // Register subscription to listen to updates to layout props
+  useEffect(() => {
+    clientPropsManager.registerSubscription(({ updatedProps }) => {
+      if (isNotNil(updatedProps.layout)) {
+        setProps(updatedProps.layout)
+      }
+    })
+  }, [clientPropsManager, setProps])
 
   return (
-    <LayoutPropsContext.Provider value={[props, setProps]}>
+    <LayoutPropsContext.Provider value={props}>
       {children}
     </LayoutPropsContext.Provider>
   )

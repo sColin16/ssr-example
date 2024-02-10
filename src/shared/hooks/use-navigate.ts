@@ -1,39 +1,26 @@
 import { propsService } from "shared/service/props"
-import { useLayoutProps } from "./use-layout-props"
-import { useCallback, useMemo } from "react"
-import { usePageProps } from "./use-page-props"
-import { isNotNil } from "shared/utils"
+import { useCallback } from "react"
+import { useClientPropsManager } from "./use-client-props-manager"
 
 export const useNavigate = () => {
-  const [layoutProps, setLayoutProps] = useLayoutProps()
-  const [pageProps, setPageProps] = usePageProps()
-
-  const currProps = useMemo(
-    () => ({
-      layout: layoutProps,
-      page: pageProps,
-    }),
-    [layoutProps, pageProps],
-  )
+  const clientPropsManager = useClientPropsManager()
 
   const navigate = useCallback(
     async (path: string) => {
-      const udpatedProps = await propsService.fetchProps(path, currProps)
+      const currentProps = clientPropsManager.currentProps
 
-      // Set the props based on the response
-      if (isNotNil(udpatedProps.layout)) {
-        setLayoutProps(udpatedProps.layout)
-      }
+      // TODO: make propsService dependency injectable so we can do things like prefetching, caching, etc.
+      const updatedProps = await propsService.fetchProps(path, currentProps)
 
-      if (isNotNil(udpatedProps.page)) {
-        setPageProps(udpatedProps.page)
-      }
-
-      const newProps = { ...currProps, ...udpatedProps }
-
-      history.pushState(newProps, "", path)
+      clientPropsManager.updateProps({
+        updatedProps,
+        state: {
+          type: 'pathNavigate',
+          path
+        }
+      })
     },
-    [currProps, setLayoutProps, setPageProps],
+    [clientPropsManager],
   )
 
   return navigate

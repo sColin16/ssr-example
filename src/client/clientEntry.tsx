@@ -1,7 +1,11 @@
 import { hydrate } from "react-dom"
 
-import { App, AppProps } from "shared/components/App"
+import { App, LayerProps, AppProps } from "shared/components/App"
+import { ClientPropsManager } from "shared/service/props-manager"
 
-declare const props: AppProps
+declare const layerProps: LayerProps
 
-hydrate(<App {...props} />, document.getElementById("app"))
+const clientPropsManager = new ClientPropsManager(layerProps)
+const appProps: AppProps = { layerProps, clientPropsManager }
+
+hydrate(<App {...appProps} />, document.getElementById("app"))

@@ -5,5 +5,5 @@ import { requireOrThrow } from "shared/utils"
 export const usePageProps = () => {
   const props = useContext(PagePropsContext)
 
-  return requireOrThrow(props, new Error("Error accessing the props context"))
+  return requireOrThrow(props, new Error("Error accessing the page props context"))
 }

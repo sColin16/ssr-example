@@ -5,5 +5,5 @@ import { requireOrThrow } from "shared/utils"
 export const useLayoutProps = () => {
   const props = useContext(LayoutPropsContext)
 
-  return requireOrThrow(props, new Error("Error accessing the props context"))
+  return requireOrThrow(props, new Error("Error accessing the layout props context"))
 }

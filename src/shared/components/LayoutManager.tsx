@@ -5,7 +5,7 @@ import { Layout } from "./Layout"
 export type LayoutManagerProps = PropsWithChildren<{}>
 
 export const LayoutManager = ({ children }: LayoutManagerProps) => {
-  const [layoutProps] = useLayoutProps()
+  const layoutProps = useLayoutProps()
 
   return (
     <Layout {...layoutProps}>

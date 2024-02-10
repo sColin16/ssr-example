@@ -1,12 +1,13 @@
 import { usePageProps } from "shared/hooks/use-page-props"
 import { Page } from "./Page"
+import { useLayoutProps } from "shared/hooks/use-layout-props"
 
 export const PageManager = () => {
-  // TODO: consider also providing the layout props here. It costs us nothing
-  // since if the layout props updated The page has to rerender anyways
-  // Actually, that might not be true, React may need to rerender, but it isn't
-  // calling the Page component function again
-  const [pageProps] = usePageProps()
+  // const layoutProps = useLayoutProps()
+  const pageProps = usePageProps()
 
-  return <Page {...pageProps} />
+  // const combinedProps = {...layoutProps, ...pageProps}
+  const combinedProps = {...pageProps}
+
+  return <Page {...combinedProps} />
 }

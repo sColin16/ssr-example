@@ -1,27 +1,31 @@
-import { PropsWithChildren, createContext, useState } from "react"
+import { PropsWithChildren, createContext, useEffect, useState } from "react"
 import { PageProps } from "shared/components/Page"
-import { useEventListener } from "shared/hooks/use-event-listener"
-import { StatePair } from "shared/utils"
+import { useClientPropsManager } from "shared/hooks/use-client-props-manager"
+import { isNotNil } from "shared/utils"
 
 export type PagePropsProviderProps = PropsWithChildren<{
   initialProps: PageProps
 }>
 
-export const PagePropsContext = createContext<StatePair<PageProps> | null>(null)
+export const PagePropsContext = createContext<PageProps | null>(null)
 
 export const PagePropsProvider = ({
   initialProps,
   children,
 }: PagePropsProviderProps) => {
   const [props, setProps] = useState(initialProps)
+  const clientPropsManager = useClientPropsManager()
 
-  useEventListener("popstate", (event) => {
-    // TODO: only set this when the page changes as a result of navigation
-    setProps(event.state.page)
-  })
+  useEffect(() => {
+    clientPropsManager.registerSubscription((newProps) => {
+      if (isNotNil(newProps.updatedProps.page)) {
+        setProps(newProps.updatedProps.page)
+      }
+    })
+  }, [clientPropsManager, setProps])
 
   return (
-    <PagePropsContext.Provider value={[props, setProps]}>
+    <PagePropsContext.Provider value={props}>
       {children}
     </PagePropsContext.Provider>
   )
