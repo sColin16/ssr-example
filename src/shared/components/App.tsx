@@ -1,9 +1,10 @@
 import { LayoutProps } from "./Layout"
 import { PageProps } from "./Page"
 import { ClientPropsManager } from "shared/service/props-manager"
-import { ClientNavigationManager } from "./ClientNavigationManager"
 import { ClientPropsManagerContext } from "shared/contexts/propsManager"
 import { LayoutManager, PageManager } from "./Managers"
+import { ContextDependentHook } from "./ContextDependentHook"
+import { useClientNavigation } from "shared/hooks/use-client-navigation"
 
 export type SiteProps = {
   layout: LayoutProps
@@ -17,7 +18,7 @@ export type AppProps = {
 export const App = ({ clientPropsManager }: AppProps) => {
   return (
     <ClientPropsManagerContext.Provider value={clientPropsManager}>
-      <ClientNavigationManager />
+      <ContextDependentHook useHook={useClientNavigation} />
       <LayoutManager>
         <PageManager />
       </LayoutManager>

@@ -1,7 +1,7 @@
-import { useClientPropsManager } from "shared/hooks/use-client-props-manager"
-import { useEventListener } from "shared/hooks/use-event-listener"
+import { useClientPropsManager } from "./use-client-props-manager"
+import { useEventListener } from "./use-event-listener"
 
-export const ClientNavigationManager = () => {
+export const useClientNavigation = () => {
   const clientPropsManager = useClientPropsManager()
 
   // Listen to browser navigation events and update props accordingly
