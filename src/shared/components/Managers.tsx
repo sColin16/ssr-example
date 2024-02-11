@@ -1,32 +1,19 @@
-import { buildComponentManager } from "shared/utils/component-manager"
 import { Layout } from "./Layout"
 import { Page } from "./Page"
-import { useSubscribedProps } from "shared/hooks/use-subscribed-props"
 import { Head } from "./Head"
+import { buildSubscribedComponent } from "shared/utils/subscribed-component"
 
-const useHeadProps = () => {
-  return useSubscribedProps('head')
-}
-
-const useLayoutProps = () => {
-  return useSubscribedProps('layout')
-}
-
-const usePageProps = () => {
-  return useSubscribedProps('page')
-}
-
-export const HeadManager = buildComponentManager({
-  useProps: useHeadProps,
-  Component: Head
+export const HeadManager = buildSubscribedComponent({
+  key: "head",
+  Component: Head,
 })
 
-export const LayoutManager = buildComponentManager({
-  useProps: useLayoutProps,
+export const LayoutManager = buildSubscribedComponent({
+  key: 'layout',
   Component: Layout,
 })
 
-export const PageManager = buildComponentManager({
-  useProps: usePageProps,
-  Component: Page
+export const PageManager = buildSubscribedComponent({
+  key: 'page',
+  Component: Page,
 })
