@@ -8,7 +8,6 @@ import { useClientNavigation } from "shared/hooks/use-client-navigation"
 import { HeadProps } from "./Head"
 
 export type SiteProps = {
-  head: HeadProps
   layout: LayoutProps
   page: PageProps
 }

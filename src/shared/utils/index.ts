@@ -19,6 +19,14 @@ export const requireOrThrow = <T>(
   return value
 }
 
+export const pickFields = <T extends object, K extends keyof T>(obj: T, keys: Array<K>): Pick<T, K> => {
+  const picked: Partial<Pick<T, K>> = {}
+
+  keys.forEach(key => picked[key] = obj[key])
+
+  return picked as Pick<T, K>
+}
+
 export const parseRequestUrl = (
   req: Request,
   resolveProtocol: (req: Request) => string = defaultResolveRequestProtocol,

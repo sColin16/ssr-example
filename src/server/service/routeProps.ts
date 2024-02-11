@@ -64,9 +64,6 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
         page: {
           initialCounterValue: 0,
         },
-        head: {
-          title: "Page not found",
-        },
       },
     }
   }
@@ -83,9 +80,6 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
       },
       page: {
         initialCounterValue: number,
-      },
-      head: {
-        title: `${color} - ${number}`,
       },
     },
   }
