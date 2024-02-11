@@ -24,6 +24,9 @@ export const Page = ({ initialCounterValue }: PageProps) => {
         <li>
           <Link path={"/blue/100"}>Blue 100</Link>
         </li>
+        <li>
+          <Link path={"/silver/200"}>Silver 200</Link>
+        </li>
       </ul>
     </div>
   )

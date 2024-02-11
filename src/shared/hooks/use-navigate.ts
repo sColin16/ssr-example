@@ -1,4 +1,4 @@
-import { propsService } from "shared/service/props"
+import { fetchPropsFollowRedirects } from "shared/service/props"
 import { useCallback } from "react"
 import { useClientPropsManager } from "./use-client-props-manager"
 
@@ -10,11 +10,11 @@ export const useNavigate = () => {
       const currentProps = clientPropsManager.currentProps
 
       // TODO: make propsService dependency injectable so we can do things like prefetching, caching, etc.
-      const updatedProps = await propsService.fetchProps(path, currentProps)
+      const { props: updatedProps, finalPath } = await fetchPropsFollowRedirects(path, currentProps)
 
       clientPropsManager.updateProps(updatedProps)
 
-      history.pushState(clientPropsManager.currentProps, "", path)
+      history.pushState(clientPropsManager.currentProps, "", finalPath)
     },
     [clientPropsManager],
   )

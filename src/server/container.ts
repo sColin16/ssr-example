@@ -1,37 +1,31 @@
-import { Router, Request } from "express"
-import { PartialPropsResolver, PropsResolver, resolvePartialProps, resolveProps } from "./service/props"
+import { Router } from "express"
 import { Container } from "mesh-di"
-import { buildRenderPage } from "./service/renderPage"
-import buildPropsRouter from "./router/props"
-import buildPageRouter from "./router/page"
+import { PartialRoutePropsResolver, resolveRoutePropsPartial } from "./service/routeProps"
+import { buildRoutePropsRouter } from "./router/routeProps"
+import { RouteResponseResolver, resolveResponseFromRequest } from "./service/routeResponse"
+import { buildRouteResponseRouter } from "./router/routeResponse"
 
 type Catalog = {
-  propsResolver: PropsResolver
-  partialPropsResolver: PartialPropsResolver
-  renderPage: (req: Request) => Promise<string>
-  propsRouter: Router
-  pageRouter: Router
+  partialRoutePropsResolver: PartialRoutePropsResolver
+  routeResponseResolver: RouteResponseResolver
+  routePropsRouter: Router
+  routeResponseRouter: Router
 }
 
 const container = new Container<Catalog>()
 
-container.registerStatic("propsResolver", resolveProps)
-container.registerStatic("partialPropsResolver", resolvePartialProps)
-container.register("renderPage", {
-  deps: ["propsResolver"],
-  func: ({ propsResolver }) => buildRenderPage({ resolveProps: propsResolver }),
+container.register("routePropsRouter", {
+  deps: ["partialRoutePropsResolver"],
+  func: buildRoutePropsRouter,
 })
 
-container.register("propsRouter", {
-  deps: ["partialPropsResolver"],
-  func: ({ partialPropsResolver }) =>
-    buildPropsRouter({ resolvePartialProps: partialPropsResolver }),
+container.register("routeResponseRouter", {
+  deps: ["routeResponseResolver"],
+  func: buildRouteResponseRouter,
 })
 
-container.register("pageRouter", {
-  deps: ["renderPage"],
-  func: ({ renderPage }) => buildPageRouter({ renderPage }),
-})
+container.registerStatic("partialRoutePropsResolver", resolveRoutePropsPartial)
+container.registerStatic("routeResponseResolver", resolveResponseFromRequest)
 
-export const propsRouter = container.resolve("propsRouter")
-export const pageRouter = container.resolve("pageRouter")
+export const routePropsRouter = container.resolve("routePropsRouter")
+export const routeResponseRouter = container.resolve("routeResponseRouter")

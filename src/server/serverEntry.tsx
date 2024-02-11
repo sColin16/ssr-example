@@ -1,8 +1,8 @@
 import express from "express"
 import compression from "compression"
-import { pageRouter, propsRouter } from "./container"
+import { routePropsRouter, routeResponseRouter } from "./container"
 
-const port = 3000
+const PORT = 3000
 const app = express()
 
 // Compress all responses
@@ -12,9 +12,9 @@ app.use(compression())
 app.use(express.static("dist/public"))
 
 // Endpoint for fetching props
-app.use(propsRouter)
+app.use(routePropsRouter)
 
 // Endpoint for rendering page HTML
-app.use(pageRouter)
+app.use(routeResponseRouter)
 
-app.listen(port, () => console.log(`App listening on port ${port}`))
+app.listen(PORT, () => console.log(`App listening on port ${PORT}`))
