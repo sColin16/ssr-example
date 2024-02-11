@@ -1,12 +1,15 @@
 import { Request } from "express"
 import { SiteProps } from "shared/components/AppBody"
 import { isNil } from "shared/utils"
+import { SitePropsSummary, resolvePartialProps } from "./partialProps"
 
 export type RouteProps = ClientProps | RedirectProps
 export type PartialRouteProps = PartialClientProps | RedirectProps
 
 export type RoutePropsResolver = (req: Request) => Promise<RouteProps>
-export type PartialRoutePropsResolver = (req: Request) => Promise<PartialRouteProps>
+export type PartialRoutePropsResolver = (
+  req: Request,
+) => Promise<PartialRouteProps>
 
 export type ClientProps = {
   type: "clientProps"
@@ -41,7 +44,7 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
       type: "redirect",
       statusCode: 308,
       headers: {
-        'X-Custom-Header': 'Redirect header value'
+        "X-Custom-Header": "Redirect header value",
       },
       location: "/gold/24",
     }
@@ -52,19 +55,19 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
       type: "clientProps",
       statusCode: 404,
       headers: {
-        'X-Customer-Header': 'Not found header value'
+        "X-Custom-Header": "Not found header value",
       },
       props: {
         layout: {
-          backgroundColor: 'white'
+          backgroundColor: "white",
         },
         page: {
-          initialCounterValue: 0
+          initialCounterValue: 0,
         },
         head: {
-          title: "Page not found"
-        }
-      }
+          title: "Page not found",
+        },
+      },
     }
   }
 
@@ -72,7 +75,7 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
     type: "clientProps",
     statusCode: 200,
     headers: {
-      'X-Custom-Header': '200 OK header value'
+      "X-Custom-Header": "200 OK header value",
     },
     props: {
       layout: {
@@ -102,33 +105,15 @@ export const resolveRoutePropsPartial = async (
       // TODO: do some error handling here?
       const clientProps = JSON.parse(
         req.headers["x-client-props"] as string,
-      ) as SiteProps
+      ) as SitePropsSummary
 
-      // TODO: have a more general way for doing these comparisons
-      const headProps =
-        clientProps.head.title === totalProps.props.head.title
-          ? undefined
-          : totalProps.props.head
-      const layoutProps =
-        clientProps.layout.backgroundColor ===
-        totalProps.props.layout.backgroundColor
-          ? undefined
-          : totalProps.props.layout
-      const pageProps =
-        clientProps.page.initialCounterValue ===
-        totalProps.props.page.initialCounterValue
-          ? undefined
-          : totalProps.props.page
+      const partialProps = resolvePartialProps(totalProps.props, clientProps)
 
       return {
         type: "clientProps",
         statusCode: totalProps.statusCode,
         headers: totalProps.headers,
-        props: {
-          head: headProps,
-          layout: layoutProps,
-          page: pageProps,
-        },
+        props: partialProps,
       }
   }
 }

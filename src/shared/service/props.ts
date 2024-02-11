@@ -1,3 +1,4 @@
+import { summarizeSiteProps } from "server/service/partialProps"
 import { PartialRouteProps } from "server/service/routeProps"
 import { SiteProps } from "shared/components/AppBody"
 
@@ -5,10 +6,10 @@ export const fetchProps = async (
   path: string,
   currProps: SiteProps,
 ): Promise<PartialRouteProps> => {
+  const summarizedProps = summarizeSiteProps(currProps)
   const response = await fetch(`/api/props${path}`, {
     headers: {
-      // TODO: send some abbreviated version of the props instead of the entire props payload
-      "X-Client-Props": JSON.stringify(currProps),
+      "X-Client-Props": JSON.stringify(summarizedProps),
     },
   })
   const props = (await response.json()) as PartialRouteProps
