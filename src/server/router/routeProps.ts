@@ -20,8 +20,9 @@ export const buildRoutePropsRouter = ({
     req.url = pagePath
 
     const routeProps = await partialRoutePropsResolver(req)
+    const headers = routeProps.headers ?? {}
 
-    res.status(200).json(routeProps)
+    res.status(200).header(headers).json(routeProps)
   })
 
   return router

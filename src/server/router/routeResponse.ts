@@ -5,19 +5,27 @@ export type PageRouterOptions = {
   routeResponseResolver: RouteResponseResolver
 }
 
-export const buildRouteResponseRouter = ({ routeResponseResolver }: PageRouterOptions) => {
+export const buildRouteResponseRouter = ({
+  routeResponseResolver,
+}: PageRouterOptions) => {
   const router = Router()
 
   router.get("*", async (req, res) => {
     const routeResponse = await routeResponseResolver(req)
 
     switch (routeResponse.type) {
-      case 'redirect':
+      case "redirect":
         // TODO: make these status codes configurable in these response objects
-        return res.location(routeResponse.location).sendStatus(routeResponse.statusCode)
+        return res
+          .location(routeResponse.location)
+          .header(routeResponse.headers)
+          .sendStatus(routeResponse.statusCode)
 
-      case 'client':
-        return res.status(routeResponse.statusCode).send(routeResponse.body)
+      case "clientProps":
+        return res
+          .status(routeResponse.statusCode)
+          .header(routeResponse.headers)
+          .send(routeResponse.body)
     }
   })
 

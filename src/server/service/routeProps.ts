@@ -11,20 +11,23 @@ export type PartialRoutePropsResolver = (req: Request) => Promise<PartialRoutePr
 // TODO: add status code to this for the HTML response codes
 // TODO: add headers to this as well
 export type ClientProps = {
-  type: "client"
+  type: "clientProps"
   statusCode: number // TODO: should we assign specific status codes to prevent this from including redirects?
+  headers?: Record<string, string>
   props: SiteProps
 }
 
 export type RedirectProps = {
   type: "redirect"
   statusCode: RedirectStatusCode
+  headers?: Record<string, string>
   location: string
 }
 
 export type PartialClientProps = {
-  type: "client"
+  type: "clientProps"
   statusCode: number
+  headers?: Record<string, string>
   props: Partial<SiteProps>
 }
 
@@ -39,14 +42,20 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
     return {
       type: "redirect",
       statusCode: 308,
+      headers: {
+        'X-Custom-Header': 'Redirect header value'
+      },
       location: "/gold/24",
     }
   }
 
   if (isNil(color) || isNil(numberStr)) {
     return {
-      type: "client",
+      type: "clientProps",
       statusCode: 404,
+      headers: {
+        'X-Customer-Header': 'Not found header value'
+      },
       props: {
         layout: {
           backgroundColor: 'white'
@@ -62,8 +71,11 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
   }
 
   return {
-    type: "client",
+    type: "clientProps",
     statusCode: 200,
+    headers: {
+      'X-Custom-Header': '200 OK header value'
+    },
     props: {
       layout: {
         backgroundColor: color,
@@ -88,7 +100,7 @@ export const resolveRoutePropsPartial = async (
     case "redirect":
       return totalProps
 
-    case "client":
+    case "clientProps":
       // TODO: do some error handling here?
       const clientProps = JSON.parse(
         req.headers["x-client-props"] as string,
@@ -111,8 +123,9 @@ export const resolveRoutePropsPartial = async (
           : totalProps.props.page
 
       return {
-        type: "client",
+        type: "clientProps",
         statusCode: totalProps.statusCode,
+        headers: totalProps.headers,
         props: {
           head: headProps,
           layout: layoutProps,

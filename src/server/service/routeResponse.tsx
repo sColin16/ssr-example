@@ -16,14 +16,16 @@ export type RouteResponse = ClientResponse | RedirectResponse
 export type RouteResponseResolver = (req: Request) => Promise<RouteResponse>
 
 export type ClientResponse = {
-  type: "client"
+  type: "clientProps"
   statusCode: number
+  headers: Record<string, string>
   body: string
 }
 
 export type RedirectResponse = {
   type: "redirect"
   statusCode: RedirectStatusCode
+  headers: Record<string, string>
   location: string
 }
 
@@ -35,7 +37,7 @@ export const resolveResponseFromRequest = async (req: Request): Promise<RouteRes
 
 export const resolveResponseFromProps = (routeProps: RouteProps): RouteResponse => {
   switch (routeProps.type) {
-    case "client":
+    case "clientProps":
       return resolveClientResponse(routeProps)
 
     case "redirect":
@@ -55,8 +57,9 @@ const resolveClientResponse = (clientProps: ClientProps): ClientResponse => {
   const htmlString = html(head, body, clientProps.props)
 
   return {
-    type: "client",
+    type: "clientProps",
     statusCode: clientProps.statusCode,
+    headers: clientProps.headers ?? {},
     body: htmlString,
   }
 }
@@ -67,6 +70,7 @@ const resolveRedirectResponse = (
   return {
     type: "redirect",
     statusCode: redirectProps.statusCode,
+    headers: redirectProps.headers ?? {},
     location: redirectProps.location,
   }
 }
