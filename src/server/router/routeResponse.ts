@@ -15,7 +15,6 @@ export const buildRouteResponseRouter = ({
 
     switch (routeResponse.type) {
       case "redirect":
-        // TODO: make these status codes configurable in these response objects
         return res
           .location(routeResponse.location)
           .header(routeResponse.headers)

@@ -8,8 +8,6 @@ export type PartialRouteProps = PartialClientProps | RedirectProps
 export type RoutePropsResolver = (req: Request) => Promise<RouteProps>
 export type PartialRoutePropsResolver = (req: Request) => Promise<PartialRouteProps>
 
-// TODO: add status code to this for the HTML response codes
-// TODO: add headers to this as well
 export type ClientProps = {
   type: "clientProps"
   statusCode: number // TODO: should we assign specific status codes to prevent this from including redirects?

@@ -13,5 +13,5 @@ Requests are isomrphic with regards to content rendered on the page, redirect
 behavoir, and headers.
 
 Only props that have changed are fetched from the server, which allows for
-faster response times, and elimninates unnecessary renders in the client
+faster response times, and eliminates unnecessary renders in the client
 application
