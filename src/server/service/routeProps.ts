@@ -1,5 +1,6 @@
 import { Request } from "express"
 import { SiteProps } from "shared/components/AppBody"
+import { isNil } from "shared/utils"
 
 export type RouteProps = ClientProps | RedirectProps
 export type PartialRouteProps = PartialClientProps | RedirectProps
@@ -11,18 +12,23 @@ export type PartialRoutePropsResolver = (req: Request) => Promise<PartialRoutePr
 // TODO: add headers to this as well
 export type ClientProps = {
   type: "client"
+  statusCode: number // TODO: should we assign specific status codes to prevent this from including redirects?
   props: SiteProps
 }
 
 export type RedirectProps = {
   type: "redirect"
+  statusCode: RedirectStatusCode
   location: string
 }
 
 export type PartialClientProps = {
   type: "client"
+  statusCode: number
   props: Partial<SiteProps>
 }
+
+export type RedirectStatusCode = 301 | 302 | 303 | 307 | 308
 
 export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
   const [color, numberStr] = req.url.split("/").slice(1, 3)
@@ -32,12 +38,32 @@ export const resolveRouteProps = async (req: Request): Promise<RouteProps> => {
   if (color === "silver") {
     return {
       type: "redirect",
+      statusCode: 308,
       location: "/gold/24",
+    }
+  }
+
+  if (isNil(color) || isNil(numberStr)) {
+    return {
+      type: "client",
+      statusCode: 404,
+      props: {
+        layout: {
+          backgroundColor: 'white'
+        },
+        page: {
+          initialCounterValue: 0
+        },
+        head: {
+          title: "Page not found"
+        }
+      }
     }
   }
 
   return {
     type: "client",
+    statusCode: 200,
     props: {
       layout: {
         backgroundColor: color,
@@ -86,6 +112,7 @@ export const resolveRoutePropsPartial = async (
 
       return {
         type: "client",
+        statusCode: totalProps.statusCode,
         props: {
           head: headProps,
           layout: layoutProps,

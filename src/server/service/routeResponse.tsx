@@ -1,6 +1,7 @@
 import {
   ClientProps,
   RedirectProps,
+  RedirectStatusCode,
   RouteProps,
   resolveRouteProps,
 } from "./routeProps"
@@ -16,11 +17,13 @@ export type RouteResponseResolver = (req: Request) => Promise<RouteResponse>
 
 export type ClientResponse = {
   type: "client"
+  statusCode: number
   body: string
 }
 
 export type RedirectResponse = {
   type: "redirect"
+  statusCode: RedirectStatusCode
   location: string
 }
 
@@ -53,6 +56,7 @@ const resolveClientResponse = (clientProps: ClientProps): ClientResponse => {
 
   return {
     type: "client",
+    statusCode: clientProps.statusCode,
     body: htmlString,
   }
 }
@@ -62,6 +66,7 @@ const resolveRedirectResponse = (
 ): RedirectResponse => {
   return {
     type: "redirect",
+    statusCode: redirectProps.statusCode,
     location: redirectProps.location,
   }
 }

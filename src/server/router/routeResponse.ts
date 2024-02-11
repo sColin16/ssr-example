@@ -14,10 +14,10 @@ export const buildRouteResponseRouter = ({ routeResponseResolver }: PageRouterOp
     switch (routeResponse.type) {
       case 'redirect':
         // TODO: make these status codes configurable in these response objects
-        return res.location(routeResponse.location).sendStatus(307)
+        return res.location(routeResponse.location).sendStatus(routeResponse.statusCode)
 
       case 'client':
-        return res.status(200).send(routeResponse.body)
+        return res.status(routeResponse.statusCode).send(routeResponse.body)
     }
   })
 
