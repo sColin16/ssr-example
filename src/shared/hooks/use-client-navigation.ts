@@ -7,7 +7,11 @@ export const useClientNavigation = () => {
 
   // Set the initial state so that users can navigate back to initial render
   useEffect(() => {
-    history.replaceState(clientPropsManager.currentProps, "", document.location.href)
+    history.replaceState(
+      clientPropsManager.currentProps,
+      "",
+      document.location.href,
+    )
   }, [clientPropsManager])
 
   // Listen to browser navigation events and update props accordingly

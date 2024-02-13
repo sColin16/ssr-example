@@ -1,8 +1,14 @@
 import { Router } from "express"
 import { Container } from "mesh-di"
-import { PartialRoutePropsResolver, resolveRoutePropsPartial } from "./service/routeProps"
+import {
+  PartialRoutePropsResolver,
+  resolveRoutePropsPartial,
+} from "./service/routeProps"
 import { buildRoutePropsRouter } from "./router/routeProps"
-import { RouteResponseResolver, resolveResponseFromRequest } from "./service/routeResponse"
+import {
+  RouteResponseResolver,
+  resolveResponseFromRequest,
+} from "./service/routeResponse"
 import { buildRouteResponseRouter } from "./router/routeResponse"
 
 type Catalog = {

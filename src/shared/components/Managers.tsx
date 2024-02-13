@@ -6,20 +6,20 @@ import { buildAggregateSubscribedComponent } from "shared/utils/aggregate-subscr
 
 export const HeadManager = buildAggregateSubscribedComponent({
   keys: ["layout", "page"],
-  aggregator: (({ layout, page }) => {
+  aggregator: ({ layout, page }) => {
     return {
-      title: `${layout.backgroundColor} - ${page.initialCounterValue}`
+      title: `${layout.backgroundColor} - ${page.initialCounterValue}`,
     }
-  }),
+  },
   Component: Head,
 })
 
 export const LayoutManager = buildSubscribedComponent({
-  key: 'layout',
+  key: "layout",
   Component: Layout,
 })
 
 export const PageManager = buildSubscribedComponent({
-  key: 'page',
+  key: "page",
   Component: Page,
 })

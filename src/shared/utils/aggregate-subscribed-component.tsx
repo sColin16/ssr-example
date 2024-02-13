@@ -2,9 +2,12 @@ import { SiteProps } from "shared/components/AppBody"
 import { useAggregateSubscribedProps } from "shared/hooks/use-aggregate-subsribed-props"
 import { buildManagedComponent } from "./managed-component"
 
-export type BuildAggregateSubscribedComponentOptions<K extends keyof SiteProps, T> = {
+export type BuildAggregateSubscribedComponentOptions<
+  K extends keyof SiteProps,
+  T,
+> = {
   keys: Array<K>
-  aggregator: (props: Pick<SiteProps, K>) => T,
+  aggregator: (props: Pick<SiteProps, K>) => T
   Component: (props: T) => JSX.Element
 }
 
@@ -12,10 +15,13 @@ export type BuildAggregateSubscribedComponentOptions<K extends keyof SiteProps, 
  * Builds a managed component whose props are derived by aggregating multiple
  * keys from the SiteProps object
  */
-export function buildAggregateSubscribedComponent<K extends keyof SiteProps, T> ({
+export function buildAggregateSubscribedComponent<
+  K extends keyof SiteProps,
+  T,
+>({
   keys,
   aggregator,
-  Component
+  Component,
 }: BuildAggregateSubscribedComponentOptions<K, T>) {
   const useProps = () => {
     return useAggregateSubscribedProps(keys, aggregator)
@@ -23,7 +29,7 @@ export function buildAggregateSubscribedComponent<K extends keyof SiteProps, T> 
 
   const SubscribedComponent = buildManagedComponent({
     Component,
-    useProps
+    useProps,
   })
 
   return SubscribedComponent

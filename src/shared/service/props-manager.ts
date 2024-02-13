@@ -22,7 +22,7 @@ export class ClientPropsManager {
 
   private notifySubscribers = (updatedProps: Partial<SiteProps>) => {
     this.subscriptions.forEach((subscriberCallback) =>
-      subscriberCallback(updatedProps)
+      subscriberCallback(updatedProps),
     )
   }
 }

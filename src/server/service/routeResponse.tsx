@@ -29,13 +29,17 @@ export type RedirectResponse = {
   location: string
 }
 
-export const resolveResponseFromRequest = async (req: Request): Promise<RouteResponse> => {
+export const resolveResponseFromRequest = async (
+  req: Request,
+): Promise<RouteResponse> => {
   const routeProps = await resolveRouteProps(req)
 
   return resolveResponseFromProps(routeProps)
 }
 
-export const resolveResponseFromProps = (routeProps: RouteProps): RouteResponse => {
+export const resolveResponseFromProps = (
+  routeProps: RouteProps,
+): RouteResponse => {
   switch (routeProps.type) {
     case "clientProps":
       return resolveClientResponse(routeProps)

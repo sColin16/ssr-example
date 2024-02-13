@@ -20,7 +20,10 @@ export const useAggregateSubscribedProps = <K extends keyof SiteProps, T>(
       const updatedSubscribedProps = pickFields(updatedProps, keys)
 
       if (Object.values(updatedSubscribedProps).some(isNotNil)) {
-        const newSubscribedProps = pickFields(clientPropsManager.currentProps, keys)
+        const newSubscribedProps = pickFields(
+          clientPropsManager.currentProps,
+          keys,
+        )
         const newAggregateProps = aggregator(newSubscribedProps)
 
         setProps(newAggregateProps)
