@@ -14,7 +14,6 @@ export const resolvePartialProps = (
     totalProps.page.initialCounterValue === clientProps.initialValue
 
   const includeProp = {
-    head: !colorMatches || !numMatches,
     layout: !colorMatches,
     page: !numMatches,
   }
