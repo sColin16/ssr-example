@@ -1,17 +1,17 @@
 import { Router } from "express"
-import { PartialRoutePropsResolver } from "server/service/routeProps"
+import { RoutePropsService } from "server/service/routeProps/types"
 
-export type RoutePropsRouterOptions = {
-  partialRoutePropsResolver: PartialRoutePropsResolver
+export type DefaultRoutePropsRouterOptions<SiteProps> = {
+  routePropsService: RoutePropsService<SiteProps>
   baseUrl?: string
 }
 
 const DEFAULT_BASE_URL = "/api/props"
 
-export const buildRoutePropsRouter = ({
-  partialRoutePropsResolver,
+export const defaultRoutePropsRouter = <SiteProps>({
+  routePropsService,
   baseUrl = DEFAULT_BASE_URL,
-}: RoutePropsRouterOptions) => {
+}: DefaultRoutePropsRouterOptions<SiteProps>) => {
   const router = Router()
 
   router.get(`${baseUrl}*`, async (req, res) => {
@@ -19,7 +19,7 @@ export const buildRoutePropsRouter = ({
     const pagePath = req.url.slice(baseUrl.length)
     req.url = pagePath
 
-    const routeProps = await partialRoutePropsResolver(req)
+    const routeProps = await routePropsService.resolvePartialProps(req)
     const headers = routeProps.headers ?? {}
 
     res.status(200).header(headers).json(routeProps)

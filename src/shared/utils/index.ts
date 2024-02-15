@@ -30,6 +30,17 @@ export const pickFields = <T extends object, K extends keyof T>(
   return picked as Pick<T, K>
 }
 
+export const filterByKey = <T extends object>(
+  input: T,
+  predicate: Record<keyof T, boolean>,
+): Partial<T> => {
+  const includedKeys = Object.entries(predicate)
+    .filter(([key, include]) => include)
+    .map(([key, include]) => key) as Array<keyof T>
+
+  return pickFields(input, includedKeys)
+}
+
 export const parseRequestUrl = (
   req: Request,
   resolveProtocol: (req: Request) => string = defaultResolveRequestProtocol,

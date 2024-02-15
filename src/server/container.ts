@@ -1,19 +1,16 @@
 import { Router } from "express"
 import { Container } from "mesh-di"
-import {
-  PartialRoutePropsResolver,
-  resolveRoutePropsPartial,
-} from "./service/routeProps"
-import { buildRoutePropsRouter } from "./router/routeProps"
-import {
-  RouteResponseResolver,
-  resolveResponseFromRequest,
-} from "./service/routeResponse"
-import { buildRouteResponseRouter } from "./router/routeResponse"
+import { defaultRoutePropsRouter } from "./router/routeProps"
+import { defaultRouteResponseRouter } from "./router/routeResponse"
+import { exampleRoutePropsService } from "./service/routeProps/example"
+import { exampleRouteResponseService } from "./service/routeResponse/example"
+import { RoutePropsService } from "./service/routeProps/types"
+import { RouteResponseService } from "./service/routeResponse/types"
+import { SiteProps } from "shared/components/AppBody"
 
 type Catalog = {
-  partialRoutePropsResolver: PartialRoutePropsResolver
-  routeResponseResolver: RouteResponseResolver
+  routePropsService: RoutePropsService<SiteProps>
+  routeResponseService: RouteResponseService
   routePropsRouter: Router
   routeResponseRouter: Router
 }
@@ -21,17 +18,17 @@ type Catalog = {
 const container = new Container<Catalog>()
 
 container.register("routePropsRouter", {
-  deps: ["partialRoutePropsResolver"],
-  func: buildRoutePropsRouter,
+  deps: ["routePropsService"],
+  func: defaultRoutePropsRouter
 })
 
 container.register("routeResponseRouter", {
-  deps: ["routeResponseResolver"],
-  func: buildRouteResponseRouter,
+  deps: ["routeResponseService"],
+  func: defaultRouteResponseRouter,
 })
 
-container.registerStatic("partialRoutePropsResolver", resolveRoutePropsPartial)
-container.registerStatic("routeResponseResolver", resolveResponseFromRequest)
+container.registerStatic("routePropsService", exampleRoutePropsService)
+container.registerStatic("routeResponseService", exampleRouteResponseService)
 
 export const routePropsRouter = container.resolve("routePropsRouter")
 export const routeResponseRouter = container.resolve("routeResponseRouter")
