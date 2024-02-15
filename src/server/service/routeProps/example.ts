@@ -1,9 +1,9 @@
 import { SiteProps } from "shared/components/AppBody"
 import { ResponseType, RouteProps } from "./types"
 import { isNil } from "shared/utils"
-import { SitePropsSummary } from "../partialProps"
 import { DefaultRoutePropsService, filterPropsFromPredicate } from "."
 import { Request } from 'express'
+import { SitePropsSummary } from "shared/service/clientProps/example"
 
 const exampleRoutePropsResolver = async (req: Request): Promise<RouteProps<SiteProps>> => {
   const [color, numberStr] = req.url.split("/").slice(1, 3)
