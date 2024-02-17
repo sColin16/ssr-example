@@ -1,7 +1,7 @@
 const path = require("path")
 
 module.exports = {
-  entry: "./src/client/clientEntry.tsx",
+  entry: "./src/example/client/clientEntry.tsx",
   output: {
     filename: "client.js",
     path: path.resolve(__dirname, "dist/public"),

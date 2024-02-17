@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "license": "MIT",
   "scripts": {
-    "start": "yarn run build && node dist/server/serverEntry.js",
+    "start": "yarn run build && node dist/example/server/serverEntry.js",
     "build": "yarn run build-client && yarn run build-server",
     "build-client": "webpack",
-    "build-server": "yarn run build-server-module && yarn run build-shared-module",
-    "build-server-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/server src/server",
-    "build-shared-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/shared src/shared",
+    "build-server": "yarn run build-server-module && yarn run build-shared-module && yarn run build-library-module",
+    "build-server-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/example/server src/example/server",
+    "build-shared-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/example/shared src/example/shared",
+    "build-library-module": "babel -x .ts,.tsx --config-file ./.node.babelrc -d dist/library src/library",
     "type-check": "tsc",
     "fmt": "prettier . --write"
   },
