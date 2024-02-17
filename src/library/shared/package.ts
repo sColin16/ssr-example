@@ -49,6 +49,6 @@ export const buildSharedPackage = <SiteProps extends object>(
     Link,
     useNavigate,
     buildSubscribedComponent,
-    buildAggregateSubscribedComponent
+    buildAggregateSubscribedComponent,
   }
 }

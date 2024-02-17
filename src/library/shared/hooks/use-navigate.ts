@@ -11,7 +11,7 @@ export type UseNavigate = () => (path: string) => void
 
 export const buildUseNavigate = <SiteProps>({
   clientPropsService,
-  useClientPropsManager
+  useClientPropsManager,
 }: UseNavigateOptions<SiteProps>) => {
   const useNavigate: UseNavigate = () => {
     const clientPropsManager = useClientPropsManager()
@@ -21,10 +21,7 @@ export const buildUseNavigate = <SiteProps>({
         const currentProps = clientPropsManager.readCurrentProps()
 
         const { props: updatedProps, finalPath } =
-          await clientPropsService.fetchPropsFollowRedirects(
-            path,
-            currentProps,
-          )
+          await clientPropsService.fetchPropsFollowRedirects(path, currentProps)
 
         clientPropsManager.updateProps(updatedProps)
 

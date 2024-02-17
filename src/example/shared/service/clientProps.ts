@@ -1,5 +1,5 @@
-import { SiteProps } from "example/shared/components/App";
-import { DefaultClientPropsService } from "library/shared/service/clientProps";
+import { SiteProps } from "example/shared/components/App"
+import { DefaultClientPropsService } from "library/shared/service/clientProps"
 
 export type SitePropsSummary = {
   color: string
@@ -13,4 +13,6 @@ export const summarizeSiteProps = (totalProps: SiteProps): SitePropsSummary => {
   }
 }
 
-export const exampleClientPropsService = new DefaultClientPropsService(summarizeSiteProps)
+export const exampleClientPropsService = new DefaultClientPropsService(
+  summarizeSiteProps,
+)

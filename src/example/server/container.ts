@@ -19,7 +19,7 @@ const container = new Container<Catalog>()
 
 container.register("routePropsRouter", {
   deps: ["routePropsService"],
-  func: defaultRoutePropsRouter
+  func: defaultRoutePropsRouter,
 })
 
 container.register("routeResponseRouter", {

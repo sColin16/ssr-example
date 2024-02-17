@@ -1,5 +1,10 @@
 import { hydrateRoot } from "react-dom/client"
-import { AppBody, AppHead, AppProps, SiteProps } from "example/shared/components/App"
+import {
+  AppBody,
+  AppHead,
+  AppProps,
+  SiteProps,
+} from "example/shared/components/App"
 import { buildWireHistoryManagement } from "library/shared/utils/wire-history-management"
 import { DefaultClientPropsManager } from "library/shared/service/clientPropsManager.ts"
 

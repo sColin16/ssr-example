@@ -1,12 +1,14 @@
 import { ClientPropsManager } from "library/shared/service/clientPropsManager.ts/types"
 
-export const buildWireHistoryManagement = <SiteProps>(clientPropsManager: ClientPropsManager<SiteProps>) => {
+export const buildWireHistoryManagement = <SiteProps>(
+  clientPropsManager: ClientPropsManager<SiteProps>,
+) => {
   const wireHistoryManagement = () => {
     // Set the initial state so that users can navigate back to initial render
     history.replaceState(
       clientPropsManager.readCurrentProps(),
       "",
-      document.location.href
+      document.location.href,
     )
 
     // Listen to browser navigation events and update props accordingly

@@ -20,6 +20,6 @@ export const Layout = ({ backgroundColor, children }: LayoutProps) => {
 }
 
 export const ManagedLayout = buildSubscribedComponent({
-  key: 'layout',
-  Component: Layout
+  key: "layout",
+  Component: Layout,
 })

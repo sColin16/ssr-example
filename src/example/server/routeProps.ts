@@ -1,11 +1,16 @@
 import { SiteProps } from "example/shared/components/App"
 import { isNil } from "library/shared/utils"
-import { Request } from 'express'
+import { Request } from "express"
 import { ResponseType, RouteProps } from "library/server/routeProps/types"
-import { DefaultRoutePropsService, filterPropsFromPredicate } from "library/server/routeProps/service"
+import {
+  DefaultRoutePropsService,
+  filterPropsFromPredicate,
+} from "library/server/routeProps/service"
 import { SitePropsSummary } from "example/shared/service/clientProps"
 
-const exampleRoutePropsResolver = async (req: Request): Promise<RouteProps<SiteProps>> => {
+const exampleRoutePropsResolver = async (
+  req: Request,
+): Promise<RouteProps<SiteProps>> => {
   const [color, numberStr] = req.url.split("/").slice(1, 3)
 
   const number = Number(numberStr)
@@ -56,15 +61,20 @@ const exampleRoutePropsResolver = async (req: Request): Promise<RouteProps<SiteP
   }
 }
 
-const exampleFilterProps = filterPropsFromPredicate((totalProps: SiteProps, clientProps: SitePropsSummary) => {
-  const colorMatches = totalProps.layout.backgroundColor === clientProps.color
-  const numMatches =
-    totalProps.page.initialCounterValue === clientProps.initialValue
+const exampleFilterProps = filterPropsFromPredicate(
+  (totalProps: SiteProps, clientProps: SitePropsSummary) => {
+    const colorMatches = totalProps.layout.backgroundColor === clientProps.color
+    const numMatches =
+      totalProps.page.initialCounterValue === clientProps.initialValue
 
-  return {
-    layout: !colorMatches,
-    page: !numMatches,
-  }
-})
+    return {
+      layout: !colorMatches,
+      page: !numMatches,
+    }
+  },
+)
 
-export const exampleRoutePropsService = new DefaultRoutePropsService(exampleRoutePropsResolver, exampleFilterProps)
+export const exampleRoutePropsService = new DefaultRoutePropsService(
+  exampleRoutePropsResolver,
+  exampleFilterProps,
+)
