@@ -1,24 +1,16 @@
 import {
   AppBody,
   AppHead,
-  AppProps,
   SiteProps,
 } from "example/shared/components/App"
 import { renderToString } from "react-dom/server"
-import { DefaultClientPropsManager } from "library/shared/service/clientPropsManager"
 import { ClientProps } from "library/server/routeProps/types"
 import { DefaultRouteResponseService } from "library/server/routeResponse/service"
 import { exampleRoutePropsService } from "./routeProps"
-import { StarterHistoryManager } from "library/shared/service/historyManager"
+import { buildAppProps } from "example/shared/package"
 
 const exampleRenderClientProps = (clientProps: ClientProps<SiteProps>) => {
-  // TODO: do something to unify the creation of these app props server and client-side
-  const clientPropsManager = new DefaultClientPropsManager(clientProps.props)
-  const historyManager = new StarterHistoryManager(clientPropsManager)
-  const appProps: AppProps = {
-    clientPropsManager,
-    historyManager,
-  }
+  const appProps = buildAppProps(clientProps.props)
 
   const head = renderToString(<AppHead {...appProps} />)
   const body = renderToString(<AppBody {...appProps} />)
