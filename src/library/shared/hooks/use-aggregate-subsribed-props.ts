@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from "react"
 import { isNotNil, pickFields } from "library/shared/utils"
-import { ClientPropsManager } from "library/shared/service/clientPropsManager.ts/types"
+import { ClientPropsManager } from "library/shared/service/clientPropsManager/types"
 
 export type UseAggregateSubscribedPropsOptions<SiteProps extends object> = {
   useClientPropsManager: () => ClientPropsManager<SiteProps>

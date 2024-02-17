@@ -1,4 +1,4 @@
-import { ClientPropsManager } from "library/shared/service/clientPropsManager.ts/types"
+import { ClientPropsManager } from "library/shared/service/clientPropsManager/types"
 import { getUseNonNullContext } from "library/shared/utils/use-non-null-context"
 
 export const buildUseClientPropsManager = <SiteProps>(

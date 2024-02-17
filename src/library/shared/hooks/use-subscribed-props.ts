@@ -1,5 +1,5 @@
 import { buildUseAggregateSubscribedProps } from "./use-aggregate-subsribed-props"
-import { ClientPropsManager } from "library/shared/service/clientPropsManager.ts/types"
+import { ClientPropsManager } from "library/shared/service/clientPropsManager/types"
 
 export type UseSubscribedPropsOptions<SiteProps extends object> = {
   useClientPropsManager: () => ClientPropsManager<SiteProps>

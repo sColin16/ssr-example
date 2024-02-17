@@ -9,16 +9,26 @@ import { BuildAggregateSubscribedComponentOptions } from "library/shared/utils/a
 import { SubscribedComponentOptions } from "library/shared/utils/subscribed-component"
 import { buildSubscribedComponent as buildSubscribedComponentGeneric } from "library/shared/utils/subscribed-component"
 import { buildAggregateSubscribedComponent as buildAggregateSubscribedComponentGeneric } from "library/shared/utils/aggregate-subscribed-component"
+import { buildHistoryManagerContext } from "./contexts/historyManager"
+import { buildUseHistoryManager } from "./hooks/use-history-manager"
+import { buildClientProvider } from "./components/ClientProvider"
 
 export const buildSharedPackage = <SiteProps extends object>(
   clientPropsService: ClientPropsService<SiteProps>,
 ) => {
   const ClientPropsManagerContext = buildClientPropsManagerContext<SiteProps>()
+  const HistoryManagerContext = buildHistoryManagerContext<SiteProps>()
+  const ClientProvider = buildClientProvider(
+    ClientPropsManagerContext.Provider,
+    HistoryManagerContext.Provider,
+  )
   const useClientPropsManager = buildUseClientPropsManager(
     ClientPropsManagerContext,
   )
+  const useHistoryManager = buildUseHistoryManager(HistoryManagerContext)
   const useNavigate = buildUseNavigate({
     clientPropsService,
+    useHistoryManager,
     useClientPropsManager,
   })
   const Link = buildLink({ useNavigate })
@@ -45,7 +55,7 @@ export const buildSharedPackage = <SiteProps extends object>(
     })
 
   return {
-    ClientPropsManagerContext,
+    ClientProvider,
     Link,
     useNavigate,
     buildSubscribedComponent,

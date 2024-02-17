@@ -2,7 +2,7 @@ import { buildSharedPackage } from "library/shared/package"
 import { exampleClientPropsService } from "./service/clientProps"
 
 export const {
-  ClientPropsManagerContext,
+  ClientProvider,
   Link,
   useNavigate,
   buildAggregateSubscribedComponent,

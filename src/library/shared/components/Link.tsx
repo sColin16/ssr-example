@@ -1,8 +1,5 @@
 import { PropsWithChildren } from "react"
-import {
-  UseNavigate,
-  buildUseNavigate,
-} from "library/shared/hooks/use-navigate"
+import { UseNavigate } from "library/shared/hooks/use-navigate"
 
 export type LinkOptions = {
   useNavigate: UseNavigate

@@ -5,19 +5,20 @@ import {
   AppProps,
   SiteProps,
 } from "example/shared/components/App"
-import { buildWireHistoryManagement } from "library/shared/utils/wire-history-management"
-import { DefaultClientPropsManager } from "library/shared/service/clientPropsManager.ts"
+import { DefaultClientPropsManager } from "library/shared/service/clientPropsManager"
+import { StarterHistoryManager } from "library/shared/service/historyManager"
 
 declare const siteProps: SiteProps
 
 const clientPropsManager = new DefaultClientPropsManager(siteProps)
-const wireHistoryManagement = buildWireHistoryManagement(clientPropsManager)
+const historyManager = new StarterHistoryManager(clientPropsManager)
 
 const appProps: AppProps = {
   clientPropsManager,
+  historyManager,
 }
 
-wireHistoryManagement()
+historyManager.initialize()
 
 hydrateRoot(document.head, <AppHead {...appProps} />)
 hydrateRoot(document.getElementById("appBody")!, <AppBody {...appProps} />)

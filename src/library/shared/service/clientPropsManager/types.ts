@@ -1,6 +1,6 @@
 export type ClientPropsManager<SiteProps> = {
   readCurrentProps: () => SiteProps
-  updateProps: (updatedProps: Partial<SiteProps>) => void
+  updateProps: (updatedProps: Partial<SiteProps>) => SiteProps
   registerSubscription: (callback: SubscriptionCallback<SiteProps>) => void
 }
 

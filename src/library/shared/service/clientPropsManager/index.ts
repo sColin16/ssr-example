@@ -20,6 +20,8 @@ export class DefaultClientPropsManager<SiteProps>
     this.currentProps = { ...this.currentProps, ...updatedProps }
 
     this.notifySubscribers(updatedProps)
+
+    return this.currentProps
   }
 
   private notifySubscribers = (updatedProps: Partial<SiteProps>) => {
