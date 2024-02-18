@@ -2,7 +2,6 @@ import { buildLink } from "library/shared/components/Link"
 import { buildClientPropsManagerContext } from "library/shared/contexts/propsManager"
 import { buildUseAggregateSubscribedProps } from "library/shared/hooks/use-aggregate-subsribed-props"
 import { buildUseClientPropsManager } from "library/shared/hooks/use-client-props-manager"
-import { buildUseNavigate } from "library/shared/hooks/use-navigate"
 import { buildUseSubscribedProps } from "library/shared/hooks/use-subscribed-props"
 import { ClientPropsService } from "library/shared/service/clientProps/types"
 import { BuildAggregateSubscribedComponentOptions } from "library/shared/utils/aggregate-subscribed-component"
@@ -12,6 +11,7 @@ import { buildAggregateSubscribedComponent as buildAggregateSubscribedComponentG
 import { buildHistoryManagerContext } from "./contexts/historyManager"
 import { buildUseHistoryManager } from "./hooks/use-history-manager"
 import { buildClientProvider } from "./components/ClientProvider"
+import { buildUseRouter } from "./hooks/use-router"
 
 export const buildSharedPackage = <SiteProps extends object>(
   clientPropsService: ClientPropsService<SiteProps>,
@@ -26,12 +26,8 @@ export const buildSharedPackage = <SiteProps extends object>(
     ClientPropsManagerContext,
   )
   const useHistoryManager = buildUseHistoryManager(HistoryManagerContext)
-  const useNavigate = buildUseNavigate({
-    clientPropsService,
-    useHistoryManager,
-    useClientPropsManager,
-  })
-  const Link = buildLink({ useNavigate })
+  const useRouter = buildUseRouter({ clientPropsService, useClientPropsManager, useHistoryManager })
+  const Link = buildLink({ useRouter })
   const useSubscribedProps = buildUseSubscribedProps({ useClientPropsManager })
   const useAggregateSubscribedProps = buildUseAggregateSubscribedProps({
     useClientPropsManager,
@@ -57,7 +53,7 @@ export const buildSharedPackage = <SiteProps extends object>(
   return {
     ClientProvider,
     Link,
-    useNavigate,
+    useRouter,
     buildSubscribedComponent,
     buildAggregateSubscribedComponent,
   }

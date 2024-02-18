@@ -11,7 +11,7 @@ import { PropsSummaryHistoryManager } from "library/shared/service/historyManage
 export const {
   ClientProvider,
   Link,
-  useNavigate,
+  useRouter,
   buildAggregateSubscribedComponent,
   buildSubscribedComponent,
 } = buildSharedPackage(exampleClientPropsService)

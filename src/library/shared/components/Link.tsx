@@ -1,23 +1,23 @@
 import { PropsWithChildren } from "react"
-import { UseNavigate } from "library/shared/hooks/use-navigate"
+import { UseRouter } from "../hooks/use-router"
 
 export type LinkOptions = {
-  useNavigate: UseNavigate
+  useRouter: UseRouter
 }
 export type LinkProps = PropsWithChildren<{
   path: string
 }>
 
-export const buildLink = ({ useNavigate }: LinkOptions) => {
+export const buildLink = ({ useRouter }: LinkOptions) => {
   const Link = ({ path, children }: LinkProps) => {
-    const navigate = useNavigate()
+    const router = useRouter()
 
     return (
       <a
         href={path}
         onClick={(e) => {
           e.preventDefault()
-          navigate(path)
+          router.push(path)
         }}
       >
         {children}
