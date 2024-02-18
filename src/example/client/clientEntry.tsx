@@ -1,9 +1,5 @@
 import { hydrateRoot } from "react-dom/client"
-import {
-  AppBody,
-  AppHead,
-  SiteProps,
-} from "example/shared/components/App"
+import { AppBody, AppHead, SiteProps } from "example/shared/components/App"
 import { buildAppProps } from "example/shared/package"
 
 declare const siteProps: SiteProps

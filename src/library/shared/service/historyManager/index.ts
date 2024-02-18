@@ -1,3 +1,4 @@
+import { TotalPropsFilter } from "library/server/routeProps/service"
 import { ClientPropsManager } from "../clientPropsManager/types"
 import { HistoryManager } from "./types"
 
@@ -112,6 +113,56 @@ export class StarterHistoryManager<SiteProps>
       clientPropsManager,
       (props) => props,
       (currentProps, state) => state,
+    )
+  }
+
+  initialize = () => {
+    this.basicHistoryManager.initialize()
+  }
+
+  replaceState = (path: string, props: SiteProps) => {
+    this.basicHistoryManager.replaceState(path, props)
+  }
+
+  pushState = (path: string, props: SiteProps) => {
+    this.basicHistoryManager.pushState(path, props)
+  }
+
+  forward = () => {
+    this.basicHistoryManager.forward()
+  }
+
+  back = () => {
+    this.basicHistoryManager.back()
+  }
+
+  go = (delta?: number) => {
+    this.basicHistoryManager.go(delta)
+  }
+}
+
+export class PropsSummaryHistoryManager<SiteProps, SitePropsSummary>
+  implements HistoryManager<SiteProps>
+{
+  private readonly basicHistoryManager: BasicHistoryManager<
+    SiteProps,
+    SiteProps
+  >
+
+  constructor(
+    clientPropsManager: ClientPropsManager<SiteProps>,
+    summarizeSiteProps: (props: SiteProps) => SitePropsSummary,
+    filterProps: TotalPropsFilter<SiteProps, SitePropsSummary>,
+  ) {
+    this.basicHistoryManager = new BasicHistoryManager(
+      clientPropsManager,
+      (props) => props,
+      (currentProps, newProps) => {
+        const summarizedCurrent = summarizeSiteProps(currentProps)
+        const resolvedPartialProps = filterProps(newProps, summarizedCurrent)
+
+        return resolvedPartialProps
+      },
     )
   }
 

@@ -1,8 +1,4 @@
-import {
-  AppBody,
-  AppHead,
-  SiteProps,
-} from "example/shared/components/App"
+import { AppBody, AppHead, SiteProps } from "example/shared/components/App"
 import { renderToString } from "react-dom/server"
 import { ClientProps } from "library/server/routeProps/types"
 import { DefaultRouteResponseService } from "library/server/routeResponse/service"

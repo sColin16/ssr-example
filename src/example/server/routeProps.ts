@@ -2,11 +2,8 @@ import { SiteProps } from "example/shared/components/App"
 import { isNil } from "library/shared/utils"
 import { Request } from "express"
 import { ResponseType, RouteProps } from "library/server/routeProps/types"
-import {
-  DefaultRoutePropsService,
-  filterPropsFromPredicate,
-} from "library/server/routeProps/service"
-import { SitePropsSummary } from "example/shared/service/clientProps"
+import { DefaultRoutePropsService } from "library/server/routeProps/service"
+import { exampleFilterProps } from "example/shared/service/clientProps"
 
 const exampleRoutePropsResolver = async (
   req: Request,
@@ -60,19 +57,6 @@ const exampleRoutePropsResolver = async (
     },
   }
 }
-
-const exampleFilterProps = filterPropsFromPredicate(
-  (totalProps: SiteProps, clientProps: SitePropsSummary) => {
-    const colorMatches = totalProps.layout.backgroundColor === clientProps.color
-    const numMatches =
-      totalProps.page.initialCounterValue === clientProps.initialValue
-
-    return {
-      layout: !colorMatches,
-      page: !numMatches,
-    }
-  },
-)
 
 export const exampleRoutePropsService = new DefaultRoutePropsService(
   exampleRoutePropsResolver,
