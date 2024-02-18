@@ -8,6 +8,9 @@ import {
 } from "../routeProps/types"
 import { ClientResponse, RedirectResponse, RouteResponse } from "./types"
 
+const DEFAULT_CLIENT_STATUS_CODE = 200
+const DEFAULT_REDIRECT_STATUS_CODE = 307
+
 export class DefaultRouteResponseService<SiteProps> {
   constructor(
     private readonly routePropsService: RoutePropsService<SiteProps>,
@@ -41,7 +44,7 @@ export class DefaultRouteResponseService<SiteProps> {
 
     return {
       type: ResponseType.ClientProps,
-      statusCode: clientProps.statusCode,
+      statusCode: clientProps.statusCode ?? DEFAULT_CLIENT_STATUS_CODE,
       headers: clientProps.headers ?? {},
       body: htmlString,
     }
@@ -52,7 +55,7 @@ export class DefaultRouteResponseService<SiteProps> {
   ): RedirectResponse => {
     return {
       type: ResponseType.Redirect,
-      statusCode: redirectProps.statusCode,
+      statusCode: redirectProps.statusCode ?? DEFAULT_REDIRECT_STATUS_CODE,
       headers: redirectProps.headers ?? {},
       location: redirectProps.location,
     }

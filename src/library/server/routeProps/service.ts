@@ -1,4 +1,4 @@
-import { filterByKey, requireOrThrow } from "library/shared/utils"
+import { requireOrThrow } from "library/shared/utils"
 import { ResponseType, RoutePropsResolver, RoutePropsService } from "./types"
 import { Request } from "express"
 
@@ -20,6 +20,7 @@ export class DefaultRoutePropsService<SiteProps, SitePropsSummary>
     ) => SitePropsSummary = sitePropsFromHeader,
   ) {}
 
+  // TODO: should we add the default status codes here as well?
   resolveProps = (req: Request) => {
     return this.propsResolver(req)
   }

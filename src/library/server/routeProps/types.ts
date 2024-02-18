@@ -20,14 +20,14 @@ export type PartialRouteProps<SiteProps> =
 
 export type ClientProps<SiteProps> = {
   type: ResponseType.ClientProps
-  statusCode: number // TODO: should we assign specific status codes to prevent this from including redirects?
+  statusCode?: number // TODO: should we assign specific status codes to prevent this from including redirects?
   headers?: Headers
   props: SiteProps
 }
 
 export type RedirectProps = {
   type: ResponseType.Redirect
-  statusCode: RedirectStatusCode
+  statusCode?: RedirectStatusCode
   headers?: Headers
   location: string
 }

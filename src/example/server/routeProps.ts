@@ -15,7 +15,6 @@ const exampleRoutePropsResolver = async (
   if (color === "silver") {
     return {
       type: ResponseType.Redirect,
-      statusCode: 308,
       headers: {
         "X-Custom-Header": "Redirect header value",
       },
@@ -43,7 +42,6 @@ const exampleRoutePropsResolver = async (
 
   return {
     type: ResponseType.ClientProps,
-    statusCode: 200,
     headers: {
       "X-Custom-Header": "200 OK header value",
     },
